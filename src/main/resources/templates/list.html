@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=width-device, user-scalable=no"/>
+<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+<title>FitCard Teste</title>
+</head>
+<body class="bg-dark">
+	<div class="jumbotron text-center bg-success text-light">
+		<h1 class="display-4">Estabelecimentos</h1>
+		<p class="lead">Realize e consulte os cadastros de estabelecimentos</p>
+	</div>
+	<div class="container text-light">
+		<a class="btn btn-primary mb-4" th:href="@{/estabelecimentos/cadastrar}">Novo Estabelecimento</a>
+	
+ 		<div th:if="${mensagem != null}">
+			<div class="alert alert-info">
+				<span th:text="${mensagem}"></span>
+			</div>
+ 		</div>
+ 		<div th:if="${not #lists.isEmpty(estabelecimentos)}">
+		<table class="table table-striped table-dark">
+			<thead>
+				<tr>
+					<th>Razão Social</th>
+					<th>Nome Fantasia</th>
+					<th>CNPJ</th>
+					<th>Cidade</th>
+					<th>Categoria</th>
+					<th>Ação</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="estabelecimento:${estabelecimentos}">
+					<td th:text="${estabelecimento.razaoSocial}"></td>
+					<td th:text="${estabelecimento.nomeFantasia}"></td>
+					<td th:text="${estabelecimento.cnpj}"></td>
+					<td th:text="${estabelecimento.endereco.cidade.nome}"></td>
+					<td th:text="${estabelecimento.categoria.nome}"></td>
+					<td>
+						<p>
+							<a class="btn btn-sm btn-info btn" th:href="@{/estabelecimentos/{id}/atualizar(id=${estabelecimento.id})}">Editar</a>
+							<a class="btn btn-sm btn-danger" th:href="@{/estabelecimentos/{id}/excluir(id=${estabelecimento.id})}">Excluir</a>
+							<a class="btn btn-sm btn-secondary" th:href="@{/estabelecimentos/{id}/detalhes(id=${estabelecimento.id})}">Detalhes</a>
+						</p>
+					</td>
+				</tr>		
+			</tbody>
+		</table>
+		</div>
+		<div th:if="${#lists.isEmpty(estabelecimentos)}">
+			<div class="alert alert-info" role="alert">
+				Nenhum estabelecimento cadastrado!
+			</div>
+		</div>
+		<hr/>
+			<a class="btn btn-success" href="/">Home</a>
+		<hr/>	
+		</div>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+
+<link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+<title>FitCard Teste</title>
+</head>
+<body class="bg-dark text-light">
+	<div class="jumbotron bg-success text-center">
+		<h1 class="display-8">Estabelecimento</h1>
+		<p class="lead">Crie ou edite estabelecimentos</p>
+	</div>
+	<div class="container">
+		<a class="btn btn-success mb-4" th:href="@{/estabelecimentos/listar}">Voltar</a>
+		<h3>Novo Estabelecimento</h3>
+		<form th:action="@{/estabelecimentos/salvar}" th:method="${estabelecimentos.id} == null ? post : put" th:object="${estabelecimentos}">
+			<div class="row">
+				<input id="id" type="hidden" th:field="*{id}"/>
+				<div class="form-group col-md-6">
+					<label for="razaoSocial">Razão Social</label>
+					<input class="form-control" id="razaoSocial" type="text" th:field="*{razaoSocial}"/>
+					<div class="form-control alert alert-danger" th:if="${#fields.hasErrors('razaoSocial')}" th:errors="*{razaoSocial}"></div>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="nomeFantasia">Nome Fantasia</label>
+					<input class="form-control" id="nomeFantasia" type="text" th:field="*{nomeFantasia}"/>
+					<div class="form-control alert alert-danger" th:if="${#fields.hasErrors('nomeFantasia')}" th:errors="*{nomeFantasia}"></div>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="cnpj">CNPJ</label>
+					<input class="form-control" placeholder="__.___.___/____-__" pattern="[0-9]{2}\.?[0-9]{3}\.?[0-9]{3}\/?[0-9]{4}\-?[0-9]{2}" title="Ex.: 11.111.111/1111-11" id="cnpj" type="text" th:field="*{cnpj}"/>
+					<div class="form-control alert alert-danger" th:if="${#fields.hasErrors('cnpj')}" th:errors="*{cnpj}"></div>
+				</div>
+				<div class="form-group col-md-5">
+					<label for="email">E-mail</label>
+					<input class="form-control" placeholder="exemplo@email.com" id="email" type="email" th:field="*{email}"/>
+					<div class="form-control alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+				</div>
+				<div class="form-group col-md-2">
+					<label for="telefone">Telefone</label>
+					<input class="form-control" placeholder="(11)1111-1111" pattern="\(\d{2}\)\d{4,5}-\d{4}" title="Ex.: (11)91111-1111" id="telefone" type="text" th:field="*{telefone}"/>
+					<div class="form-control alert alert-danger" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></div>
+				</div>
+				<div class="form-group col-md-2">
+					<label for="status">Status</label>
+					<select class="form-control" id="status" th:field="*{status}">
+					  <option value="true">Ativo</option>
+					  <option value="false">Inativo</option>
+					</select>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="logradouro">Logradouro</label>
+					<input class="form-control" id="logradouro" type="text" th:field="*{endereco.logradouro}"/>
+					<div class="form-control alert alert-danger" th:if="${#fields.hasErrors('endereco.logradouro')}" th:errors="*{endereco.logradouro}"></div>
+				</div>
+				<div class="form-group col-md-2">
+					<label for="numero">Número</label>
+					<input class="form-control" id="numero" type="text" th:field="*{endereco.numero}"/>
+					<div class="form-control alert alert-danger" th:if="${#fields.hasErrors('endereco.numero')}" th:errors="*{endereco.numero}"></div>
+				</div>
+				<div class="form-group col-md-4">
+					<label for="bairro">Bairro</label>
+					<input class="form-control" id="bairro" type="text" th:field="*{endereco.bairro}"/>
+					<div class="form-control alert alert-danger" th:if="${#fields.hasErrors('endereco.bairro')}" th:errors="*{endereco.bairro}"></div>
+				</div>
+				<div class="form-group col-md-4">
+					<label for="cidade">Cidade</label>
+					<input class="form-control" id="cidade" type="text" th:field="*{endereco.cidade.nome}"/>
+					<div class="form-control alert alert-danger" th:if="${#fields.hasErrors('endereco.cidade.nome')}" th:errors="*{endereco.cidade.nome}"></div>
+				</div>
+				<div class="form-group col-md-2">
+					<label for="estado">Estado</label>
+					<select class="form-control" id="estado" th:field="*{endereco.cidade.estado.id}">
+					  <option th:each="estado: ${estados}" th:value="${estado.id}" th:text="${estado.nome}">Ativo</option>							
+					</select>
+				</div>				
+				<div class="form-group col-md-3">
+					<label for="agencia">Agência</label>
+					<input class="form-control" placeholder="xxx-x" pattern="\d{3}-\d{1}" title="Ex.: xxx-x" id="agencia" type="text" th:field="*{agencia}"/>
+					<div class="form-control alert alert-danger" th:if="${#fields.hasErrors('agencia')}" th:errors="*{agencia}"></div>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="conta">Conta</label>
+					<input class="form-control" placeholder="xx.xxx-x" pattern="\d{2}.\d{3}-\d{1}" title="Ex.: xx.xxx-x" id="conta" type="text" th:field="*{conta}"/>
+					<div class="form-control alert alert-danger" th:if="${#fields.hasErrors('conta')}" th:errors="*{conta}"></div>
+				</div>		
+				<div class="form-group col-md-2">
+					<label for="categoria">Categoria</label>
+					<select class="form-control" id="categoria" th:field="*{categoria}">
+					  <option th:each="categ: ${categorias}" th:value="${categ.id}" th:text="${categ.nome}">Ativo</option>							
+					</select>
+				</div>
+				<div class="form-group col-md-3">
+					<label for="dataCadastro">Data</label>
+					<input class="form-control" id="dataCadastro" type="date" th:field="*{dataCadastro}"/>
+					<div class="form-control alert alert-danger" th:if="${#fields.hasErrors('dataCadastro')}" th:errors="*{dataCadastro}"></div>
+				</div>			
+			</div>
+			<button class="btn btn-primary" type="submit" id="saveForm">Salvar</button>
+		</form>
+	</div>
+	<script type="text/javascript" src="/bootstrap/js/jquery.min.js"></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.bundle.min.js" /></script>
+    <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js" /></script>
+    <script type="text/javascript" src="/bootstrap/js/validation.js"/></script>
+</body>
+</html>

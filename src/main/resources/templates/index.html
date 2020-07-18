@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,user-scalable=no"/>
+<link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"  media="screen,projection"/>
+</head>
+<body class="bg-success">
+	<div class="jumbotron text-center bg-success text-light">
+		<h1 class="display-1">Estabelecimentos</h1>
+		<p class="lead">Realize e consulte os cadastros de estabelecimentos</p>
+	</div>
+	<div class="row bg-dark text-light d-flex align-items-stretch">
+		<div class="col-3 text-center">
+			<h4>Diversas categorias</h4>
+			<p>Supermercados, Restaurantes, Borracharias, Postos e Oficinas</p>
+		</div>
+		<div class="col-6 text-center">
+			<h4>Conheça os estabelecimentos</h4>
+			<p>Aqui você pode visualizar e editar os estabelecimentos</p>
+			<p>
+				<a class="btn btn-success" th:href="@{/estabelecimentos/listar}">Estabelecimentos</a>
+			</p>
+		</div>
+		<div class="col-3 text-center">
+			<h4>Do seu jeito</h4>
+			<p>Cadastre um estabelecimento</p>
+			<p>
+				<a class="btn btn-success" th:href="@{/estabelecimentos/cadastrar}">Cadastrar</a>
+			</p>
+		</div>
+	</div>
+</body>
+</html>

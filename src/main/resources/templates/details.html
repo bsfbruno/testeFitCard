@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,user-scalable=no"/>
+<link type="text/css" rel="stylesheet" href="/bootstrap/css/bootstrap.min.css"  media="screen,projection"/>
+</head>
+<body class="bg-dark	">
+	<div class="bg-dark text-light">
+		<div class="text-center font-weight-bold" th:each="est : ${estabelecimento}">
+			<h1 class="mb-4">Detalhes Estabelecimento</h1>
+			<p>Razão Social: <span th:text="${est.razaoSocial}"></span></p>
+			<p>Nome Fantasia: <span th:text="${est.nomeFantasia}"></span></p>
+			<p>CNPJ: <span th:text="${est.cnpj}"></span></p>
+			<p>E-mail: <span th:text="${est.email}"></span></p>
+			<p>Endereço: <span th:text="${est.endereco.logradouro}"></span></p>
+			<p>Cidade: <span th:text="${est.endereco.cidade.nome}"></span></p>
+			<p>Estado: <span th:text="${est.endereco.cidade.estado.nome}"></span>
+			<p>Telefone: <span th:text="${est.telefone}"></span></p>
+			<p>Cadastro: <span th:text="${#dates.format(est.dataCadastro, 'dd-MM-yyyy')}"></span></p>
+			<p>Categoria: <span th:text="${est.categoria.nome}"></span></p>
+			<p>Ativo: <span th:text="${est.status}"></span></p>
+			<p>Agência: <span th:text="${est.agencia}"></span></p>
+			<p>Conta: <span th:text="${est.conta}"></span></p>
+			<a class="btn btn-primary mb-4" th:href="@{/estabelecimentos/listar}">Voltar</a>			
+		</div>
+	</div>
+</body>
+</html>
