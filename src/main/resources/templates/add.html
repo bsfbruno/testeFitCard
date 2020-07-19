@@ -40,7 +40,7 @@
 				</div>
 				<div class="form-group col-md-2">
 					<label for="telefone">Telefone</label>
-					<input class="form-control" placeholder="(11)1111-1111" pattern="\(\d{2}\)\d{4,5}-\d{4}" title="Ex.: (11)91111-1111" id="telefone" type="text" th:field="*{telefone}"/>
+					<input class="form-control" placeholder="(XX)XXXX-XXXX" oninvalid="this.setCustomValidity('Telefone Obrigatório')" id="telefone" type="text" th:field="*{telefone}"/>
 					<div class="form-control alert alert-danger" th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}"></div>
 				</div>
 				<div class="form-group col-md-2">
@@ -89,7 +89,7 @@
 				<div class="form-group col-md-2">
 					<label for="categoria">Categoria</label>
 					<select class="form-control" id="categoria" th:field="*{categoria}">
-					  <option th:each="categ: ${categorias}" th:value="${categ.id}" th:text="${categ.nome}">Ativo</option>							
+					  <option th:each="categ: ${categorias}" th:value="${categ.id}" th:text="${categ.nome}"></option>							
 					</select>
 				</div>
 				<div class="form-group col-md-3">
@@ -104,6 +104,37 @@
 	<script type="text/javascript" src="/bootstrap/js/jquery.min.js"></script>
     <script type="text/javascript" src="/bootstrap/js/bootstrap.bundle.min.js" /></script>
     <script type="text/javascript" src="/bootstrap/js/bootstrap.min.js" /></script>
-    <script type="text/javascript" src="/bootstrap/js/validation.js"/></script>
+    <script type="text/javascript" src="/bootstrap/js/jquery-1.5.2.min.js"></script>
+	<script type="text/javascript" src="/bootstrap/js/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="/bootstrap/js/additional-methods.min.js"></script>
+	<script type="text/javascript" src="/bootstrap/js/messages_ptbr.js"></script>
+	<script type="text/javascript" src="/bootstrap/js/jquery.maskedinput-1.3.min.js"></script>
+	<script type="text/javascript" src="/bootstrap/js/jquery.price_format.1.4.js"></script>
+    <script type="text/javascript">
+    jQuery(function($){
+    	   $("#cnpj").mask("99.999.999/9999-99");
+    	   $("#telefone").mask("(99) 9999-9999");
+    	   $("#agencia").mask("999-9");
+    	   $("#conta").mask("99.999-9");
+    	});    
+    </script>
+    <script type="text/javascript">
+	jQuery(function($) {
+			$("#categoria").change(validacao);
+			$("#telefone").focusout(validacao)
+		});
+    
+    function validacao() {
+    	var selectedValue = $(this).children("option:selected").text();
+    	console.log(selectedValue);
+		if (selectedValue == "Supermercado" && $("#telefone:text").val() == "") {			
+			$("#saveForm").attr("disabled","disabled");
+			$("#telefone").after('<p class="errorFone" style="color: red; border: solid 1px red; background-color: #FAEBD7">Telefone Obrigatório!</p>')
+		} else {
+			$("#saveForm").removeAttr("disabled");
+			$(".errorFone").remove();
+		}
+    }
+    </script>
 </body>
 </html>

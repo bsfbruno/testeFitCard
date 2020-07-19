@@ -24,8 +24,7 @@ public class Estabelecimento implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@NotBlank(message = "O campo não pode estar em branco")
-	private String razaoSocial;
-	@NotBlank(message = "O campo não pode estar em branco")
+	private String razaoSocial;	
 	private String nomeFantasia;
 	@CNPJ
 	private String cnpj;
